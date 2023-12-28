@@ -1,6 +1,6 @@
 namespace Frank.Collections.Multidimensional;
 
-// File src/Frank.GameEngine.Primitives/SubPrimitives/Array2D.Find.cs
+// File Array2D.Find.cs
 public partial class Array2D<T>
 {
     /// <summary>
@@ -30,7 +30,6 @@ public partial class Array2D<T>
     /// <summary>
     /// Finds elements in an array using a given predicate and positions.
     /// </summary>
-    /// <typeparam name="T">The type of elements in the array.</typeparam>
     /// <param name="predicate">The predicate used to filter the elements.</param>
     /// <param name="positions">The positions to search in the array.</param>
     /// <returns>An enumerable sequence of elements matching the predicate at the specified positions.</returns>

@@ -1,6 +1,4 @@
-﻿using Frank.Collections.Extensions;
-
-namespace Frank.Collections.Multidimensional;
+﻿namespace Frank.Collections.Multidimensional;
 
 /// <summary>
 /// Represents a two-dimensional array of type T.
@@ -52,12 +50,4 @@ public partial class Array2D<T>
     /// </remarks>
     /// <returns></returns>
     public T?[,] ToUnsafeArray() => _array;
-
-    /// <summary>
-    /// Converts the current instance to its equivalent string representation.
-    /// </summary>
-    /// <returns>
-    /// A string representation of the current instance.
-    /// </returns>
-    public override string ToString() => _array.Select2D(x => x?.ToString() ?? "").AsString();
 }

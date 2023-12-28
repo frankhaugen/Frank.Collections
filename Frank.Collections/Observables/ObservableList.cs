@@ -9,11 +9,8 @@ public class ObservableList<T> : List<T>, IObservableList<T> where T : INotifyPr
 {
     private readonly List<IObserver<T>> _observers = new();
 
-    public ObservableList()
-    {
-        CollectionChanged += OnCollectionChanged;
-    }
-        
+    public ObservableList() => CollectionChanged += OnCollectionChanged;
+
     public new void Add(T item)
     {
         base.Add(item);
@@ -124,7 +121,16 @@ public class ObservableList<T> : List<T>, IObservableList<T> where T : INotifyPr
     }
 
     public int SubscriberCount => _observers.Count;
+
+    public override int GetHashCode() => this.Aggregate(0, (current, item) => current ^ item.GetHashCode());
     
+    public override bool Equals(object? obj)
+    {
+        if (obj is not ObservableList<T> list) return false;
+        if (list.Count != Count) return false;
+        return GetHashCode() == list.GetHashCode();
+    }
+
     private void OnCollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)
     {
         foreach (var observer in _observers)

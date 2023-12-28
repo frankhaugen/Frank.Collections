@@ -1,5 +1,7 @@
 ﻿using System.Text;
 
+using Frank.Collections.Multidimensional;
+
 namespace Frank.Collections.Extensions;
 
 public static class ArrayExtensions
@@ -56,6 +58,31 @@ public static class ArrayExtensions
     }
 
     /// <summary>
+    /// Converts an IEnumerable of IEnumerable to a 2D array of T?.
+    /// </summary>
+    /// <typeparam name="T">The type of the elements in the source enumerable.</typeparam>
+    /// <param name="source">The source enumerable to convert.</param>
+    /// <returns>A 2D array of T? representing the source enumerable.</returns>
+    public static T?[,] To2DArray<T>(this IEnumerable<IEnumerable<T?>> source)
+    {
+        var enumerable = source as IEnumerable<T?>[] ?? source.ToArray();
+        int height = enumerable.Count();
+        int width = enumerable.First().Count();
+
+        T?[,] result = new T?[height, width];
+
+        for (uint y = 0; y < height; y++)
+        {
+            for (uint x = 0; x < width; x++)
+            {
+                result[y, x] = enumerable.ElementAt((int)y).ElementAt((int)x);
+            }
+        }
+
+        return result;
+    }
+
+    /// <summary>
     /// Returns a string representation of the 2D array of nullable strings.
     /// </summary>
     /// <param name="source"></param>
@@ -74,4 +101,12 @@ public static class ArrayExtensions
         stringBuilder.Remove(stringBuilder.Length - 1, 1);
         return stringBuilder.ToString();
     }
+
+    /// <summary>
+    /// Converts a two-dimensional nullable array to a <see cref="Array2D{T}"/> object.
+    /// </summary>
+    /// <typeparam name="T">The type of elements in the array.</typeparam>
+    /// <param name="source">The two-dimensional nullable array to be converted.</param>
+    /// <returns>A new instance of <see cref="Array2D{T}"/> containing the elements from the source array.</returns>
+    public static Array2D<T?> ToArray2D<T>(this T?[,] source) => new(source);
 }

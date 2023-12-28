@@ -1,5 +1,6 @@
 namespace Frank.Collections.Multidimensional;
 
+// File: Array2D.Set.cs
 public partial class Array2D<T>
 {
     /// <summary>

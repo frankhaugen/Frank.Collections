@@ -135,10 +135,10 @@ public class ObservableListTests
 
 file class TestItem : INotifyPropertyChanged
 {
-    private string _name;
+    private string? _name;
     private int _age;
 
-    public string Name
+    public string? Name
     {
         get => _name;
         set => SetField(ref _name, value);
@@ -165,6 +165,7 @@ file class TestItem : INotifyPropertyChanged
         return true;
     }
 }
+
 file class TestObserver<T> : IObserver<T>
 {
     public T? Value { get; private set; }

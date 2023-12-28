@@ -1,15 +1,9 @@
+using System.Diagnostics.CodeAnalysis;
+
 namespace Frank.Collections.Multidimensional;
 
 public static class Array2DExtensions
 {
-    /// <summary>
-    /// Converts a two-dimensional array to an Array2D object.
-    /// </summary>
-    /// <typeparam name="T">The type of the elements in the array.</typeparam>
-    /// <param name="array">The two-dimensional array to be converted.</param>
-    /// <returns>An Array2D object containing the elements of the input array.</returns>
-    public static Array2D<T> ToArray2D<T>(this T[,] array) => new(array);
-
     /// <summary>
     /// Retrieves the value at the specified position in a two-dimensional nullable array.
     /// </summary>

@@ -1,6 +1,6 @@
 namespace Frank.Collections.Multidimensional;
 
-// File src/Frank.GameEngine.Primitives/SubPrimitives/Array2D.Indexers.cs
+// File Array2D.Indexers.cs
 public partial class Array2D<T>
 {
     /// <summary>

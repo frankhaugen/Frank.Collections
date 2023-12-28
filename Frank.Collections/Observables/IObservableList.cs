@@ -3,6 +3,12 @@ using System.ComponentModel;
 
 namespace Frank.Collections.Observables;
 
+/// <summary>
+/// Represents an observable list that implements the <see cref="IList{T}"/>, <see cref="INotifyCollectionChanged"/>,
+/// and <see cref="IObservable{T}"/> interfaces. The elements in this list are of type T and
+/// must implement the <see cref="INotifyPropertyChanged"/> interface.
+/// </summary>
+/// <typeparam name="T">The type of elements in the list.</typeparam>
 public interface IObservableList<T> : IList<T>, INotifyCollectionChanged, IObservable<T>
     where T : INotifyPropertyChanged
 {
