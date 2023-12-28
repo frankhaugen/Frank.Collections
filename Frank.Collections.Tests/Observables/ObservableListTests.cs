@@ -1,48 +1,9 @@
 ﻿using Frank.Collections.Observables;
 
-using JetBrains.Annotations;
-
-using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
-using Xunit;
-
 namespace Frank.Collections.Tests.Observables;
-
-file class TestItem : INotifyPropertyChanged
-{
-    private string _name;
-    private int _age;
-
-    public string Name
-    {
-        get => _name;
-        set => SetField(ref _name, value);
-    }
-
-    public int Age
-    {
-        get => _age;
-        set => SetField(ref _age, value);
-    }
-
-    public event PropertyChangedEventHandler? PropertyChanged;
-
-    protected virtual void OnPropertyChanged([CallerMemberName] string? propertyName = null)
-    {
-        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-    }
-
-    private bool SetField<T>(ref T field, T value, [CallerMemberName] string? propertyName = null)
-    {
-        if (EqualityComparer<T>.Default.Equals(field, value)) return false;
-        field = value;
-        OnPropertyChanged(propertyName);
-        return true;
-    }
-}
-
 
 [TestSubject(typeof(ObservableList<TestItem>))]
 public class ObservableListTests
@@ -172,6 +133,38 @@ public class ObservableListTests
     }
 }
 
+file class TestItem : INotifyPropertyChanged
+{
+    private string _name;
+    private int _age;
+
+    public string Name
+    {
+        get => _name;
+        set => SetField(ref _name, value);
+    }
+
+    public int Age
+    {
+        get => _age;
+        set => SetField(ref _age, value);
+    }
+
+    public event PropertyChangedEventHandler? PropertyChanged;
+
+    protected virtual void OnPropertyChanged([CallerMemberName] string? propertyName = null)
+    {
+        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+    }
+
+    private bool SetField<T>(ref T field, T value, [CallerMemberName] string? propertyName = null)
+    {
+        if (EqualityComparer<T>.Default.Equals(field, value)) return false;
+        field = value;
+        OnPropertyChanged(propertyName);
+        return true;
+    }
+}
 file class TestObserver<T> : IObserver<T>
 {
     public T? Value { get; private set; }

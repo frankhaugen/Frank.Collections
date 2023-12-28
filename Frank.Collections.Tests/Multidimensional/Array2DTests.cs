@@ -1,10 +1,4 @@
-﻿using Xunit;
-
-using Frank.Collections.Multidimensional;
-
-using JetBrains.Annotations;
-
-using System;
+﻿using Frank.Collections.Multidimensional;
 
 namespace Frank.Collections.Tests.Multidimensional;
 
@@ -64,7 +58,7 @@ public class Array2DTests
         array2D[1, 1] = 5;
         var result = array2D.ToString();
 
-        Assert.Equal("[0] [0] \n[0] [5] \n", result);
+        Assert.Equal("[0] [0]\n[0] [5]", result);
     }
 
     [Theory]

@@ -2,24 +2,43 @@ namespace Frank.Collections.Multidimensional;
 
 public partial class Array2D<T>
 {
-    public T? Get(ArrayPosition2D position)
-    {
-        return _array[position.Row, position.Column];
-    }
+    /// <summary>
+    /// Retrieves the value at the specified position in the array.
+    /// </summary>
+    /// <typeparam name="T">The type of the elements in the array.</typeparam>
+    /// <param name="position">The position of the element to retrieve.</param>
+    /// <returns>The value at the specified position, or null if the position is out of range.</returns>
+    public T? Get(ArrayPosition2D position) => _array[position.Row, position.Column];
 
-    public T? Get(uint x, uint y)
-    {
-        return _array[y, x];
-    }
+    /// <summary>
+    /// Gets the value at the specified position in the array.
+    /// </summary>
+    /// <typeparam name="T">The type of elements in the array.</typeparam>
+    /// <param name="x">The x-coordinate of the position.</param>
+    /// <param name="y">The y-coordinate of the position.</param>
+    /// <returns>The value at the specified position, or null if the position is out of range.</returns>
+    public T? Get(uint x, uint y) => _array[y, x];
 
-    public T?[] GetRow(uint row)
+    /// <summary>
+    /// Retrieves a row from the two-dimensional array.
+    /// </summary>
+    /// <typeparam name="T">The type of elements in the array.</typeparam>
+    /// <param name="row">The row index to retrieve.</param>
+    /// <returns>An enumerable collection of nullable values representing the elements in the specified row.</returns>
+    public IEnumerable<T?> GetRow(uint row)
     {
         var rowArray = new T?[Width];
         for (var i = 0u; i < Width; i++) rowArray[i] = _array[row, i];
         return rowArray;
     }
 
-    public T?[] GetColumn(uint column)
+    /// <summary>
+    /// Retrieves a specific column from a 2D array.
+    /// </summary>
+    /// <typeparam name="T">The type of elements contained in the array.</typeparam>
+    /// <param name="column">The index of the column to retrieve.</param>
+    /// <returns>An enumerable containing the elements of the specified column.</returns>
+    public IEnumerable<T?> GetColumn(uint column)
     {
         var columnArray = new T?[Height];
         for (var i = 0u; i < Height; i++) columnArray[i] = _array[i, column];

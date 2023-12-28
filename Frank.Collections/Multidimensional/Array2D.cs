@@ -1,52 +1,63 @@
-﻿using System.Text;
+﻿using Frank.Collections.Extensions;
 
 namespace Frank.Collections.Multidimensional;
 
+/// <summary>
+/// Represents a two-dimensional array of type T.
+/// </summary>
+/// <typeparam name="T">The type of elements in the array.</typeparam>
 public partial class Array2D<T>
 {
     private readonly T?[,] _array;
 
-    public uint Width { get; private set; }
-    public uint Height { get; private set; }
+    public uint Width => (uint) _array.GetLength(0);
+    public uint Height => (uint) _array.GetLength(1);
 
-    public Array2D(uint width, uint height)
+    /// <summary>
+    /// Initializes a new instance of the Array2D class with the specified width and height.
+    /// </summary>
+    /// <param name="width">The width of the 2D array.</param>
+    /// <param name="height">The height of the 2D array.</param>
+    public Array2D(uint width, uint height) => _array = new T?[width, height];
+
+    /// <summary>
+    /// Initializes a new instance of the Array2D class with the specified 2D array.
+    /// </summary>
+    /// <param name="array">The 2D array to set as the underlying data storage for the Array2D object.</param>
+    public Array2D(T?[,] array) => _array = array;
+
+    /// <summary>
+    ///    Returns a copy of the internal array.
+    /// </summary>
+    /// <returns></returns>
+    public T?[,] ToArray()
     {
-        Width = width;
-        Height = height;
-        _array = new T?[width, height];
-    }
-
-    public string GetMap()
-    {
-        var map = new bool[Width, Height];
-        for (var i = 0u; i < Width; i++)
-        for (var j = 0u; j < Height; j++)
-            if (_array.TryGetValue(new ArrayPosition2D(i, j), out var value) && value != null)
-                map[i, j] = true;
-            else
-                map[i, j] = false;
-
-        var stringBuilder = new StringBuilder();
-        for (var i = 0u; i < Width; i++)
-        {
-            for (var j = 0u; j < Height; j++)
-                stringBuilder.Append(map[i, j] ? "X" : " ");
-            stringBuilder.Append(Environment.NewLine);
-        }
-
-        return stringBuilder.ToString();
-    }
-
-    public override string ToString()
-    {
-        var stringBuilder = new StringBuilder();
+        var newArray = new T?[,] {};
         for (var i = 0u; i < Width; i++)
         {
             for (var j = 0u; j < Height; j++)
-                stringBuilder.Append($"[{this[i, j]}] ");
-            stringBuilder.Append('\n');
+            {
+                newArray[i, j] = _array[i, j];
+            }
         }
-
-        return stringBuilder.ToString();
+        
+        return newArray;
     }
+
+    /// <summary>
+    /// Returns the internal array as a reference.
+    /// </summary>
+    /// <remarks>
+    ///    This method is unsafe and should be used with caution. Use <see cref="ToArray"/> instead so you get a copy of the internal array instead of a reference.
+    /// </remarks>
+    /// <returns></returns>
+    public T?[,] ToUnsafeArray() => _array;
+
+    /// <summary>
+    /// Converts the current instance to its equivalent string representation.
+    /// </summary>
+    /// <returns>
+    /// A string representation of the current instance.
+    /// </returns>
+    public override string ToString() => _array.Select2D(x => x?.ToString() ?? "").AsString();
 }
